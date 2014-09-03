@@ -10,20 +10,20 @@
 @implementation UIView (UIView_AutoLayoutDump)
 
 - (void)dumpConstraints {
-
+    
     NSArray *NSLayoutConstantLookup = @[@"Not An Attribute", @"Left", @"Right", @"Top", @"Top", @"Bottom", @"Leading", @"Trailing", @"Width", @"Height", @"CenterX", @"CenterY", @"Baseline"];
-
-    NSDictionary *NSLayoutRelationLookup = @{@-1 : @"<=" ,
-                                      @0 : @"==",
-                                      @1 : @">="
-                                      };
-
+    
+    NSDictionary *NSLayoutRelationLookup = @{@(-1) : @"<=" ,
+                                             @0 : @"==",
+                                             @1 : @">="
+                                             };
+    
     [self.constraints enumerateObjectsUsingBlock:^(NSLayoutConstraint *obj, NSUInteger idx, BOOL *stop) {
-
+        
         NSString *firstItemClass = NSStringFromClass([obj.firstItem class]);
         NSString *secondItemClass = NSStringFromClass([obj.secondItem class]);
-
-        NSLog(@"%@.%@ %@ %@.%@ :@%.0f \n", firstItemClass, NSLayoutConstantLookup[obj.firstAttribute], NSLayoutRelationLookup[@(obj.relation)], secondItemClass, NSLayoutConstantLookup[obj.secondAttribute], obj.priority);
+        
+        NSLog(@"%@.%@ %@ %@.%@, %.0f :@%.0f \n", firstItemClass, NSLayoutConstantLookup[obj.firstAttribute], NSLayoutRelationLookup[@(obj.relation)], secondItemClass, NSLayoutConstantLookup[obj.secondAttribute], obj.constant, obj.priority);
     }];
 }
 @end
